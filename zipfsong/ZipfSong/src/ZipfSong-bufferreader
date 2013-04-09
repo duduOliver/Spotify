@@ -1,0 +1,47 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+
+
+public class ZipfSong {
+
+	/**
+	 * @author 
+	 * 		Du Huang
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		int numOfSongs;
+		int numOfPrint;
+		int order = 2;
+		SongPriorityList songList;
+		SongListNode cursor;
+		SongListNode newNode;
+		//Scanner reader = new Scanner(System.in);
+	    BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+	    StringTokenizer tokenizer = new StringTokenizer(stdin.readLine());
+		
+		numOfSongs = Integer.parseInt(tokenizer.nextToken());//reader.nextInt();
+		numOfPrint = Integer.parseInt(tokenizer.nextToken());//reader.nextInt();
+		tokenizer = new StringTokenizer(stdin.readLine());
+		songList = new SongPriorityList(1, Integer.parseInt(tokenizer.nextToken()), tokenizer.nextToken());
+		cursor = songList.getHead();
+		while(numOfSongs - order > -1) {
+			tokenizer = new StringTokenizer(stdin.readLine());
+			newNode = new SongListNode(order, Integer.parseInt(tokenizer.nextToken()), tokenizer.nextToken());
+			songList.insertNode(cursor, newNode);
+			cursor = songList.getHead();
+			order++;
+			//System.out.println("Hey");
+		}
+		//reader.close();
+		
+		for(int i = 0; i < numOfPrint; i++) {
+			System.out.println(cursor.getData().getName());
+			cursor = cursor.getDown();
+		}
+	}
+}
